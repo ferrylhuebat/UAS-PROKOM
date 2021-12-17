@@ -151,7 +151,7 @@ st.markdown(title4, unsafe_allow_html=True)
 df4 = df_csv.loc[df_csv['tahun'] == T]                                             # Membuat dataframe baru dari df_csv berdasarkan tahun yang dipilih
 df4 = df4.drop(['tahun'], axis=1)
 df4 = df4.rename(columns={
-                 'produksi': 'produksi_tahun-{}'.format(T2), 'kode_negara': 'kode_negara_huruf'})
+                 'produksi': 'produksi_tahun-{}'.format(T), 'kode_negara': 'kode_negara_huruf'})
 
 list_codenum_df4 = []                                       #list baru untuk menampung informasi negara berdasarkan df4
 list_name_df4 = []
@@ -174,7 +174,7 @@ df4['kode_negara_angka'] = list_codenum_df4
 
 #Mendefinisikan ulang df4 dengan kolom baru dan diurutkan berdasarkan produksi pada tahun yang dipilih
 df4 = df4[['nama', 'kode_negara_huruf', 'kode_negara_angka', 'region',
-           'sub-region', 'produksi_tahun-{}'.format(T2)]].sort_values(by=['produksi_tahun-{}'.format(T2)], ascending=False)
+           'sub-region', 'produksi_tahun-{}'.format(T)]].sort_values(by=['produksi_tahun-{}'.format(T)], ascending=False)
 
 df5 = pd.DataFrame(list(zip(list_codeletter, list_sum)),             #dataframe baru berisi produksi kumulatif minyak negara
                    columns=['kode_negara_huruf', 'produksi_kumulatif'])
@@ -189,11 +189,11 @@ df5 = df5[['nama', 'kode_negara_huruf', 'kode_negara_angka', 'region',
            'sub-region', 'produksi_kumulatif']].sort_values(by=['produksi_kumulatif'], ascending=False)
 
 #dataframe baru dari df4 dengan menghilangkan data bernilai 0 dan diurutkan berdasarkan produksi dari yang terkecil
-df_nozero = df4[df4['produksi_tahun-{}'.format(T2)] != 0].sort_values(
-    by=['produksi_tahun-{}'.format(T2)], ascending=True)
+df_nozero = df4[df4['produksi_tahun-{}'.format(T)] != 0].sort_values(
+    by=['produksi_tahun-{}'.format(T)], ascending=True)
 
 #Membuat dataframe baru dari df5 dengan menghilangkan data bernilai 0 dan diurutkan berdasarkan produksi kumulatif dari yang terkecil
-df_minproduksikumulatif = df5[df5['produksi_kumulatif'.format(T2)] != 0].sort_values(
+df_minproduksikumulatif = df5[df5['produksi_kumulatif'.format(T)] != 0].sort_values(
     by=['produksi_kumulatif'], ascending=True)
 
 #Membuat kolom pada page streamlit
@@ -202,12 +202,12 @@ col1, col2 = st.columns(2)
 #Menampilkan data berdasarkan kolom yang telah dibuat
 with col1:
     st.write("Produksi Minyak Terbesar Tahun {}".format(     
-        T2), df4.iloc[0]['produksi_tahun-{}'.format(T2)])
+        T), df4.iloc[0]['produksi_tahun-{}'.format(T)])
     # Caption untuk menampilkan informasi mengenai negara pada metric
     st.markdown("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(
         df4.iloc[0]['nama'], df4.iloc[0]['kode_negara_huruf'], df4.iloc[0]['kode_negara_angka'], df4.iloc[0]['region'], df4.iloc[0]['sub-region']))
     st.write("Produksi Minyak Terkecil Tahun {}".format(        
-        T2), df_nozero.iloc[0]['produksi_tahun-{}'.format(T2)])
+        T), df_nozero.iloc[0]['produksi_tahun-{}'.format(T)])
     st.markdown("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(        # Caption untuk menampilkan informasi mengenai negara pada metric
         df_nozero.iloc[0]['nama'], df_nozero.iloc[0]['kode_negara_huruf'], df_nozero.iloc[0]['kode_negara_angka'], df_nozero.iloc[0]['region'], df_nozero.iloc[0]['sub-region']))
 with col2:
