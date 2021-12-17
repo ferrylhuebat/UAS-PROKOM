@@ -1,7 +1,6 @@
 #Ferryl Ananda W P
 #12220151
 
-import urllib
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -9,8 +8,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import json
 
-#daftar list
-list_codeletter = []
+list_codeletter = []                   #daftar list
 list_codenum = []
 list_organization = []
 list_name = []
@@ -18,8 +16,7 @@ list_region = []
 list_subregion = []
 
 
-url = "https://github.com/ferrylhuebat/UAS-PROKOM/blob/main/kode_negara_lengkap.json"
-response = urllib.request.urlopen(url)
+response = open("kode_negara_lengkap.json")
 file_json = json.loads(response.read())
 df_csv = pd.read_csv("https://github.com/ferrylhuebat/UAS-PROKOM/blob/main/produksi_minyak_mentah.csv")
 df_json = pd.DataFrame.from_dict(file_json, orient='columns')
@@ -211,8 +208,7 @@ col1, col2, col3, col4 = st.columns(4)
 
 #Menampilkan data berdasarkan kolom yang telah dibuat
 with col1:
-    # Metric pada streamlit untuk menampilkan data jumlah produksi minyak terbesar pada tahun yang dipilih
-    st.metric("Jumlah Produksi Minyak Terbesar Tahun {}".format(
+    st.metric("Jumlah Produksi Minyak Terbesar Tahun {}".format(        # Metric pada streamlit untuk menampilkan data jumlah produksi minyak terbesar pada tahun yang dipilih
         T2), df4.iloc[0]['produksi_tahun-{}'.format(T2)])
     # Caption untuk menampilkan informasi mengenai negara pada metric
     st.caption("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(
