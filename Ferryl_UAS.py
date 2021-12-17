@@ -18,7 +18,7 @@ list_subregion = []
 
 response = open("kode_negara_lengkap.json")
 file_json = json.loads(response.read())
-df_csv = pd.read_csv("https://github.com/ferrylhuebat/UAS-PROKOM/blob/main/produksi_minyak_mentah.csv")
+df_csv = pd.read_csv("produksi_minyak_mentah.csv")
 df_json = pd.DataFrame.from_dict(file_json, orient='columns')
 
 for i in list(df_csv['kode_negara']):                   #list kode negara dari df_csv
