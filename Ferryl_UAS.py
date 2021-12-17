@@ -80,13 +80,12 @@ fig.update_layout(margin=dict(l=0, r=10, b=0, t=30),
 
 st.plotly_chart(fig, use_container_width=True)          #Menampilkan grafik pada streamlit
 tl1, tl2 = st.columns(2)                                #kolom pada page streamlit
-opt1, opt2, opt3 = st.columns((1, 1, 2))
 cg1, cg2 = st.columns(2)
 
 # Option pada streamlit untuk memilih tahun produksi minyak
 title2 = '<p style="color:#62fee9; font-size: 25px;">Grafik Jumlah Produksi Minyak Terbesar pada Suatu Tahun</p>'
 tl1.markdown(title2, unsafe_allow_html=True)
-T = int(opt1.selectbox("Tahun", list_year))
+T = int(st.sidebar.selectbox("Tahun", list_year))
 
 # Membuat dataframe baru berdasarkan tahun yang dipilih dan diurutkan berdasarkan produksi minyak terbesar
 df2 = df_csv.loc[df_csv['tahun'] == T].sort_values(
