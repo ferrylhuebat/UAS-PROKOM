@@ -79,8 +79,7 @@ for i in range(len(list(df_csv['kode_negara']))):
         list_production.append(list(df_csv['produksi'])[i])
         list_year.append(list(df_csv['tahun'])[i])
 
-# Membuat grafik garis dengan x dari list_year dan y dari list_production
-fig = px.line(x=list_year, y=list_production, labels={
+fig = px.line(x=list_year, y=list_production, labels={          # Membuat grafik garis dengan x dari list_year dan y dari list_production
               "x": "tahun", "y": "produksi"})
 fig.update_traces(line_color='#fd6341')
 fig.update_layout(margin=dict(l=0, r=10, b=0, t=30),
