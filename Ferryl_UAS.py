@@ -246,8 +246,8 @@ del df_produksikumulatifnol['produksi_kumulatif'.format(T)]
 del df_produksikumulatifnol['index']
 
 #Tabel yang menampilkan data negara dengan produksi kumulatif bernilai 0 pada tahun yang dipilih
-table2 = go.Figure(data=[go.Table(header=dict(values=list(df_produksikumulatifnol.columns), fill_color='#fc4422', line_color='#ffc8ba', font=dict(color='#fbe8e6'), align='left'), cells=dict(
-    values=df_produksikumulatifnol.transpose().values.tolist(), fill_color='#fe8062', line_color='#ffc8ba', font=dict(color='#1c1c1c'), align='left'))])
+table2 = go.Figure(data=[go.Table(header=dict(values=list(df_produksikumulatifnol.columns), fill_color='##62f9fe', line_color='#ffc8ba', font=dict(color='#fbe8e6'), align='left'), cells=dict(
+    values=df_produksikumulatifnol.transpose().values.tolist(), fill_color='##62f9fe', line_color='##62f9fe', font=dict(color='#1c1c1c'), align='left'))])
 table2.update_layout(title_text="Negara yang Tidak Memproduksi Minyak pada Keseluruhan Tahun",
                      title_x=0, margin=dict(l=0, r=10, b=15, t=35), height=1000)
 
