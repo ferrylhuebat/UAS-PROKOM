@@ -220,7 +220,7 @@ with col2:
               round(df5.iloc[0]['produksi_kumulatif'], 3))
     st.caption("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(       # Caption untuk menampilkan informasi mengenai negara pada metric
         df5.iloc[0]['nama'], df5.iloc[0]['kode_negara_huruf'], df5.iloc[0]['kode_negara_angka'], df5.iloc[0]['region'], df5.iloc[0]['sub-region']))
-        st.write("Jumlah Produksi Minyak Kumulatif Terkecil",             
+    st.write("Jumlah Produksi Minyak Kumulatif Terkecil",             
               df_minproduksikumulatif.iloc[0]['produksi_kumulatif'])
     # Caption untuk menampilkan informasi mengenai negara pada metric
     st.caption("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(df_minproduksikumulatif.iloc[0]['nama'], df_minproduksikumulatif.iloc[0][
