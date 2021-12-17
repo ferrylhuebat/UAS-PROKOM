@@ -23,24 +23,24 @@ df_csv = pd.read_csv(
     "https://github.com/ferrylhuebat/UAS-PROKOM/blob/main/produksi_minyak_mentah.csv")
 df_json = pd.DataFrame.from_dict(file_json, orient='columns')
 
-# Membuat list kode negara dari df_csv
+#list kode negara dari df_csv
 for i in list(df_csv['kode_negara']):
     if i not in list_codeletter:
         list_codeletter.append(i)
 
-# Mencari kumpulan negara pada list_codeletter
+#kumpulan negara pada list_codeletter
 for i in list_codeletter:
     if i not in list(df_json['alpha-3']):
         list_organization.append(i)
 
-# Delete kumpulan negara dari df_csv
+#Delete kumpulan negara dari df_csv
 for i in list_organization:
     df_csv = df_csv[df_csv.kode_negara != i]
     if i in list_codeletter:
         list_codeletter.remove(i)
 
-# Membuat beberapa list yang berisi informasi tentang nama negara, kode
-# negara angka, region, dan sub-region dari tiap negara pada df_csv
+#Membuat list yang berisi informasi tentang nama negara, kode
+#negara angka, region, dan sub-region dari tiap negara pada df_csv
 for i in range(len(list_codeletter)):
     for j in range(len(list(df_json['alpha-3']))):
         if list(df_json['alpha-3'])[j] == list_codeletter[i] and list(df_json['name'])[j] not in list_name:
@@ -49,22 +49,22 @@ for i in range(len(list_codeletter)):
             list_region.append(list(df_json['region'])[j])
             list_subregion.append(list(df_json['sub-region'])[j])
 
-# Membuat dataframe dari list yang berisi informasi tiap negara pada df_csv
+# Membuat dataframe dari list yang isinya informasi tiap negara
 df_negara = pd.DataFrame(list(zip(list_name, list_codeletter, list_codenum, list_region, list_subregion)), columns=[
                          'Negara', 'alpha-3', 'Kode_Negara', 'Region', 'Sub-Region'])
 
-# Konfigurasi page pada streamlit
+#Mengkoonfigurasi page pada streamlit
 st.set_page_config(page_title='Produksi Minyak Negara',
                    layout='wide', page_icon=':oil_drum:')
 
-# Header streamlit
+#Header streamlit
 t1, t2 = st.columns((0.1, 1))
 t1.image('https://github.com/ferrylhuebat/UAS-PROKOM/blob/main/logo_itb_1024.png', width=80)
 title = '<p style="font-family: sans-serif; font-size: 40px; text-align: center;"><b>Analisis Data Produksi Minyak Mentah dari Berbagai Negara</b></p>'
 t2.markdown(title, unsafe_allow_html=True)
 
 # Option pada streamlit untuk memilih negara dari daftar negara
-title1 = '<p style="color:#fe8062; font-size: 30px;">Grafik Jumlah Produksi Minyak Terhadap Waktu dari Suatu Negara</p>'
+title1 = '<p style="color:#62fee9; font-size: 40px;">Grafik Jumlah Produksi Minyak Terhadap Waktu dari Suatu Negara</p>'
 st.markdown(title1, unsafe_allow_html=True)
 N = st.selectbox("Daftar Negara", list_name)
 
@@ -102,7 +102,7 @@ opt1, opt2, opt3 = st.columns((1, 1, 2))
 cg1, cg2 = st.columns(2)
 
 # Option pada streamlit untuk memilih tahun produksi minyak
-title2 = '<p style="color:#fe8062; font-size: 23px;">Grafik Jumlah Produksi Minyak Terbesar pada Suatu Tahun</p>'
+title2 = '<p style="color:#62fee9; font-size: 25px;">Grafik Jumlah Produksi Minyak Terbesar pada Suatu Tahun</p>'
 tl1.markdown(title2, unsafe_allow_html=True)
 T = int(opt1.selectbox("Tahun", list_tahun))
 
@@ -131,7 +131,7 @@ df2 = df2[:B1]
 
 # Membuat grafik batang jumlah produksi minyak terbesar pada tahun T
 fig2 = px.bar(df2, x='negara', y='produksi', template='seaborn')
-fig2.update_traces(marker_color='#fe8062')
+fig2.update_traces(marker_color='#62fee9')
 fig2.update_layout(margin=dict(l=0, r=10, b=0, t=30),
                    yaxis_title=None, xaxis_title=None)
 
@@ -182,7 +182,7 @@ fig3.update_layout(margin=dict(l=0, r=10, b=0, t=30),
 cg2.plotly_chart(fig3, use_container_width=True)
 
 # Option pada streamlit untuk memilih tahun produksi minyak
-title4 = '<p style="color:#fe8062; font-size: 30px;">Informasi Produksi Minyak Negara</p>'
+title4 = '<p style="color:#62fee9; font-size: 30px;">Informasi Produksi Minyak Negara</p>'
 st.markdown(title4, unsafe_allow_html=True)
 T2 = int(st.selectbox("Tahun", list_tahun, key="Tahun"))
 
@@ -290,8 +290,8 @@ del df_produksinol['index']
 
 # Tabel yang menampilkan data negara dengan produksi bernilai 0 pada tahun
 # yang dipilih
-table1 = go.Figure(data=[go.Table(header=dict(values=list(df_produksinol.columns), fill_color='#fc4422', line_color='#ffc8ba', font=dict(color='#fbe8e6'), align='left'), cells=dict(
-    values=df_produksinol.transpose().values.tolist(), fill_color='#fe8062', line_color='#ffc8ba', font=dict(color='#1c1c1c'), align='left'))])
+table1 = go.Figure(data=[go.Table(header=dict(values=list(df_produksinol.columns), fill_color='#fc4422', line_color='#c5fe62', font=dict(color='#84fe62'), align='left'), cells=dict(
+    values=df_produksinol.transpose().values.tolist(), fill_color='#fe629b', line_color='#fe6262', font=dict(color='#1c1c1c'), align='left'))])
 table1.update_layout(title_text="Negara yang Tidak Memproduksi Minyak pada Tahun {}".format(T2),
                      title_x=0, margin=dict(l=0, r=10, b=10, t=30), height=1000)
 
@@ -317,7 +317,7 @@ tb1.plotly_chart(table1, use_container_width=True)
 tb2.plotly_chart(table2, use_container_width=True)
 
 # Informasi kreator
-st.markdown(" **by:**Ferryl A W P **| nim:** 12220151 **| email:** 12220151@mahasiswa.itb.ac.id")
+st.markdown(" **Ferryl A W P **| NIM:** 12220151 ** ")
 
 # Menghilangkan menu pada page streamlit
 st.markdown(""" <style>
