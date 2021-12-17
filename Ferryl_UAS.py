@@ -50,15 +50,13 @@ df_negara = pd.DataFrame(list(zip(list_name, list_codeletter, list_codenum, list
 st.set_page_config(page_title='Produksi Minyak Negara',         #Page configuration streamlit
                    layout='wide', page_icon=':oil_drum:')
 
-t1, t2 = st.columns((0.1, 1))                                   #Streamlit Header
-t1.image('https://github.com/ferrylhuebat/UAS-PROKOM/blob/main/logo_itb_1024.png', width=80)
-title = '<p style="font-family: sans-serif; font-size: 40px; text-align: center;"><b>Analisis Data Produksi Minyak Mentah dari Berbagai Negara</b></p>'
-t2.markdown(title, unsafe_allow_html=True)
+title = '<p style="font-family: sans-serif; font-size: 40px; text-align: center;"><b>Produksi Minyak Mentah</b></p>'
+st.markdown(title, unsafe_allow_html=True)
 
 # Option pada streamlit untuk memilih negara dari daftar negara
-title1 = '<p style="color:#62fee9; font-size: 40px;">Grafik Jumlah Produksi Minyak Terhadap Waktu dari Suatu Negara</p>'
+title1 = '<p style="color:#62fee9; font-size: 40px;">Grafik Produksi Minyak Suatu Negara</p>'
 st.markdown(title1, unsafe_allow_html=True)
-N = st.selectbox("Daftar Negara", list_name)
+N = st.sidebar.selectbox("Daftar Negara", list_name)
 
 for i in range(len(list_name)):
     if list_name[i] == N:
@@ -153,7 +151,7 @@ cg2.plotly_chart(fig3, use_container_width=True)                                
 
 title4 = '<p style="color:#62fee9; font-size: 30px;">Informasi Produksi Minyak Negara</p>'      #Option streamlit untuk memilih tahun produksi minyak
 st.markdown(title4, unsafe_allow_html=True)
-T2 = int(st.selectbox("Tahun", list_year, key="Tahun"))
+T2 = int(st.sidebar.selectbox("Tahun", list_year, key="Tahun"))
 
 df4 = df_csv.loc[df_csv['tahun'] == T2]                                             # Membuat dataframe baru dari df_csv berdasarkan tahun yang dipilih
 df4 = df4.drop(['tahun'], axis=1)
@@ -204,27 +202,25 @@ df_minproduksikumulatif = df5[df5['produksi_kumulatif'.format(T2)] != 0].sort_va
     by=['produksi_kumulatif'], ascending=True)
 
 #Membuat kolom pada page streamlit
-col1, col2, col3, col4 = st.columns(4)
+col1, col2 = st.columns(2)
 
 #Menampilkan data berdasarkan kolom yang telah dibuat
 with col1:
-    st.metric("Jumlah Produksi Minyak Terbesar Tahun {}".format(        # Metric pada streamlit untuk menampilkan data jumlah produksi minyak terbesar pada tahun yang dipilih
+    st.write("Jumlah Produksi Minyak Terbesar Tahun {}".format(     
         T2), df4.iloc[0]['produksi_tahun-{}'.format(T2)])
     # Caption untuk menampilkan informasi mengenai negara pada metric
     st.caption("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(
         df4.iloc[0]['nama'], df4.iloc[0]['kode_negara_huruf'], df4.iloc[0]['kode_negara_angka'], df4.iloc[0]['region'], df4.iloc[0]['sub-region']))
-with col2:
-    st.metric("Jumlah Produksi Minyak Kumulatif Terbesar",               # Metric pada streamlit untuk menampilkan data jumlah produksi minyak kumulatif terbesar
-              round(df5.iloc[0]['produksi_kumulatif'], 3))
-    st.caption("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(       # Caption untuk menampilkan informasi mengenai negara pada metric
-        df5.iloc[0]['nama'], df5.iloc[0]['kode_negara_huruf'], df5.iloc[0]['kode_negara_angka'], df5.iloc[0]['region'], df5.iloc[0]['sub-region']))
-with col3:
-    st.metric("Jumlah Produksi Minyak Terkecil Tahun {}".format(        # Metric pada streamlit untuk menampilkan data jumlah produksi minyak terkecil pada tahun yang dipilih
+    st.write("Jumlah Produksi Minyak Terkecil Tahun {}".format(        
         T2), df_nozero.iloc[0]['produksi_tahun-{}'.format(T2)])
     st.caption("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(        # Caption untuk menampilkan informasi mengenai negara pada metric
         df_nozero.iloc[0]['nama'], df_nozero.iloc[0]['kode_negara_huruf'], df_nozero.iloc[0]['kode_negara_angka'], df_nozero.iloc[0]['region'], df_nozero.iloc[0]['sub-region']))
-with col4:
-    st.metric("Jumlah Produksi Minyak Kumulatif Terkecil",              # Metric pada streamlit untuk menampilkan data jumlah produksi minyak kumulatif terkecil
+with col2:
+    st.write("Jumlah Produksi Minyak Kumulatif Terbesar",              
+              round(df5.iloc[0]['produksi_kumulatif'], 3))
+    st.caption("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(       # Caption untuk menampilkan informasi mengenai negara pada metric
+        df5.iloc[0]['nama'], df5.iloc[0]['kode_negara_huruf'], df5.iloc[0]['kode_negara_angka'], df5.iloc[0]['region'], df5.iloc[0]['sub-region']))
+        st.write("Jumlah Produksi Minyak Kumulatif Terkecil",             
               df_minproduksikumulatif.iloc[0]['produksi_kumulatif'])
     # Caption untuk menampilkan informasi mengenai negara pada metric
     st.caption("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(df_minproduksikumulatif.iloc[0]['nama'], df_minproduksikumulatif.iloc[0][
@@ -254,9 +250,3 @@ table2.update_layout(title_text="Negara yang Tidak Memproduksi Minyak pada Kesel
 tb1, tb2 = st.columns(2)                                #Membuat kolom pada page streamlit
 tb1.plotly_chart(table1, use_container_width=True)      #Menampilkan tabel berdasarkan kolom
 tb2.plotly_chart(table2, use_container_width=True)
-
-st.markdown(" **Ferryl A W P **| NIM:** 12220151 ** ")  #Creator
-st.markdown(""" <style>                                 #Delete menu pada page streamlit
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-</style> """, unsafe_allow_html=True)
