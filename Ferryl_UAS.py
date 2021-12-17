@@ -47,7 +47,7 @@ for i in range(len(list_codeletter)):
 df_negara = pd.DataFrame(list(zip(list_name, list_codeletter, list_codenum, list_region, list_subregion)), columns=[
                          'Negara', 'alpha-3', 'Kode_Negara', 'Region', 'Sub-Region'])
 
-st.set_page_config(page_title='UAS Prokom Ferryl 12220151', layout='wide'')
+st.set_page_config(page_title='UAS Prokom Ferryl 12220151', layout='wide')
 
 title = '<p style="font-family: sans-serif; font-size: 40px; text-align: center;"><b>Produksi Minyak Mentah</b></p>'
 st.markdown(title, unsafe_allow_html=True)
