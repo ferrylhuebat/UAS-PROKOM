@@ -1,14 +1,15 @@
 #Ferryl Ananda W P
 #12220151
 
+import urllib
 import numpy as np
 import pandas as pd
+import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
-import streamlit as st
 import json
-import urllib
 
+#daftar list
 list_codeletter = []
 list_codenum = []
 list_organization = []
@@ -16,11 +17,11 @@ list_name = []
 list_region = []
 list_subregion = []
 
+
 url = "https://github.com/ferrylhuebat/UAS-PROKOM/blob/main/kode_negara_lengkap.json"
 response = urllib.request.urlopen(url)
 file_json = json.loads(response.read())
-df_csv = pd.read_csv(
-    "https://github.com/ferrylhuebat/UAS-PROKOM/blob/main/produksi_minyak_mentah.csv")
+df_csv = pd.read_csv("https://github.com/ferrylhuebat/UAS-PROKOM/blob/main/produksi_minyak_mentah.csv")
 df_json = pd.DataFrame.from_dict(file_json, orient='columns')
 
 #list kode negara dari df_csv
