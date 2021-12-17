@@ -86,11 +86,8 @@ fig.update_traces(line_color='#fd6341')
 fig.update_layout(margin=dict(l=0, r=10, b=0, t=30),
                   yaxis_title=None, xaxis_title=None)
 
-# Menampilkan grafik pada streamlit
-st.plotly_chart(fig, use_container_width=True)
-
-# Membuat kolom pada page streamlit
-tl1, tl2 = st.columns(2)
+st.plotly_chart(fig, use_container_width=True)          #Menampilkan grafik pada streamlit
+tl1, tl2 = st.columns(2)                                #kolom pada page streamlit
 opt1, opt2, opt3 = st.columns((1, 1, 2))
 cg1, cg2 = st.columns(2)
 
@@ -103,11 +100,9 @@ T = int(opt1.selectbox("Tahun", list_year))
 df2 = df_csv.loc[df_csv['tahun'] == T].sort_values(
     by=['produksi'], ascending=False)
 
-# Membuat list baru yang berisi nama negara berdasarkan data df2
-list_name_df2 = []
+list_name_df2 = []              # Membuat list baru yang berisi nama negara berdasarkan data df2
 
-# Memasukkan nama negara dari df_negara ke list_name_df2 berdasarkan data dari df2
-for i in range(len(list(df2['kode_negara']))):
+for i in range(len(list(df2['kode_negara']))):              # Memasukkan nama negara dari df_negara ke list_name_df2 berdasarkan data dari df2
     for j in range(len(list(df_negara['alpha-3']))):
         if list(df2['kode_negara'])[i] == list(df_negara['alpha-3'])[j]:
             list_name_df2.append(list(df_negara['Negara'])[j])
@@ -126,24 +121,18 @@ fig2.update_layout(margin=dict(l=0, r=10, b=0, t=30),
 # Menampilkan grafik pada streamlit berdasarkan kolom yang telah dibuat
 cg1.plotly_chart(fig2, use_container_width=True)
 
-# Membuat list baru untuk menampung data produksi minyak kumulatif tiap negara
-list_sum = []
+list_sum = []                   # Membuat list baru untuk menampung data produksi minyak kumulatif tiap negara
+list_name_df3 = []              # Membuat list baru yang berisi nama negara berdasarkan data df3
 
-# Membuat list baru yang berisi nama negara berdasarkan data df3
-list_name_df3 = []
-
-# Menjumlahkan produksi minyak tiap negara dan memasukkannya ke list_sum
-for i in list_codeletter:
+for i in list_codeletter:       # Menjumlahkan produksi minyak tiap negara dan memasukkannya ke list_sum
     a = df_csv.loc[df_csv['kode_negara'] == i, 'produksi'].sum()
     list_sum.append(a)
 
-# Membuat dataframe baru dan diurutkan berdasarkan produksi kumulatif
-# minyak terbesar
+#dataframe baru dan diurutkan berdasarkan produksi kumulatif minyak terbesar
 df3 = pd.DataFrame(list(zip(list_codeletter, list_sum)),
                    columns=['kode_negara', 'produksi_kumulatif']).sort_values(by=['produksi_kumulatif'], ascending=False)
 
-# Memasukkan nama negara dari df_negara ke list_name_df3 berdasarkan data
-# dari df3
+#Memasukkan nama negara dari df_negara ke list_name_df3 berdasarkan data dari df3
 for i in range(len(list(df3['kode_negara']))):
     for j in range(len(list(df_negara['alpha-3']))):
         if list(df3['kode_negara'])[i] == list(df_negara['alpha-3'])[j]:
@@ -151,8 +140,7 @@ for i in range(len(list(df3['kode_negara']))):
 
 df3['negara'] = list_name_df3
 
-# Slider pada streamlit untuk memilih banyak negara yang akan tampil pada
-# grafik
+#Slider pada streamlit untuk memilih banyak negara yang akan tampil padagrafik
 title3 = '<p style="color:#fe8062; font-size: 23px;">Grafik Jumlah Produksi Kumulatif Minyak Terbesar</p>'
 tl2.markdown(title3, unsafe_allow_html=True)
 B2 = int(opt3.number_input("Banyak Negara", min_value=1,
