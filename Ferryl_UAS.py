@@ -217,5 +217,5 @@ with col2:
     st.write("Produksi Minyak Kumulatif Terkecil",             
               df_minproduksikumulatif.iloc[0]['produksi_kumulatif'])
     # Caption untuk menampilkan informasi mengenai negara pada metric
-    st.caption("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(df_minproduksikumulatif.iloc[0]['nama'], df_minproduksikumulatif.iloc[0][
+    st.markdown("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(df_minproduksikumulatif.iloc[0]['nama'], df_minproduksikumulatif.iloc[0][
         'kode_negara_huruf'], df_minproduksikumulatif.iloc[0]['kode_negara_angka'], df_minproduksikumulatif.iloc[0]['region'], df_minproduksikumulatif.iloc[0]['sub-region']))
