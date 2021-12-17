@@ -17,11 +17,11 @@ list_kodenegaranum = []
 list_region = []
 list_subregion = []
 
-url = "https://github.com/ferrylhuebat/uasprokom/blob/main/kode_negara_lengkap.json"
+url = "https://github.com/ferrylhuebat/UAS-PROKOM/blob/main/kode_negara_lengkap.json"
 response = urllib.request.urlopen(url)
 file_json = json.loads(response.read())
 df_csv = pd.read_csv(
-    "https://github.com/ferrylhuebat/uasprokom/blob/main/produksi_minyak_mentah.csv")
+    "https://github.com/ferrylhuebat/UAS-PROKOM/blob/main/produksi_minyak_mentah.csv")
 df_json = pd.DataFrame.from_dict(file_json, orient='columns')
 
 # Membuat list kode negara dari df_csv
@@ -259,7 +259,7 @@ with col1:
 with col2:
     # Metric pada streamlit untuk menampilkan data jumlah produksi minyak
     # kumulatif terbesar
-    st.metric("Jumlah Produksi Minyak Kumulatif Terbesar",
+    st.metric("Jumlah Produksi Minyak Kumulatif Terb    esar",
               round(df5.iloc[0]['produksi_kumulatif'], 3))
     # Caption untuk menampilkan informasi mengenai negara pada metric
     st.caption("Negara: {}  \nKode Negara: {} {}  \nRegion: {}  \nSub-Region: {}".format(
